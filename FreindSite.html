@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наш любимый класс ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS СТИЛИ --- */
+        :root {
+            --bg: #fffaf5; /* Теплый бежевый */
+            --accent: #ff8a80; /* Мягкий розово-коралловый */
+            --text: #5d4037; /* Темно-коричневый текст */
+            --card: #ffffff;
+            --soft-pink: #fce4ec;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Анимация появления */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(255, 250, 245, 0.9);
+            backdrop-filter: blur(5px);
+            display: flex; justify-content: center;
+            padding: 15px; z-index: 1000;
+            gap: 20px;
+        }
+        nav a {
+            text-decoration: none; color: var(--text);
+            font-weight: 700; font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--accent); }
+
+        /* Hero экран */
+        .hero {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; background: radial-gradient(circle, #fff1f0 0%, var(--bg) 100%);
+            padding: 20px;
+        }
+        .hero h1 {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; opacity: 0.8; }
+
+        .btn {
+            padding: 15px 30px; background: var(--accent);
+            color: white; text-decoration: none;
+            border-radius: 50px; font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 138, 128, 0.3);
+            transition: 0.3s; border: none; cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 138, 128, 0.5); }
+
+        /* Секции */
+        section { padding: 80px 10%; max-width: 1200px; margin: 0 auto; }
+        h2 { font-family: 'Caveat', cursive; font-size: 3rem; text-align: center; margin-bottom: 40px; }
+
+        /* Галерея */
+        .gallery {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .gallery-item {
+            border-radius: 20px; overflow: hidden; aspect-ratio: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.4s; border: 5px solid white;
+        }
+        .gallery-item:hover { transform: scale(1.05) rotate(2deg); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Воспоминания (карточки) */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--card); padding: 30px; border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(93, 64, 55, 0.05);
+            border: 1px solid var(--soft-pink);
+        }
+
+        /* Участники */
+        .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .tag { padding: 8px 20px; background: var(--soft-pink); border-radius: 20px; font-weight: 600; }
+
+        /* Гостевая книга */
+        .guestbook { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        input, textarea {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 2px solid var(--soft-pink); border-radius: 15px;
+            font-family: inherit; outline: none;
+        }
+        #messages { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+        .msg { background: var(--bg); padding: 15px; border-radius: 15px; margin-bottom: 10px; animation: pop 0.3s ease; }
+        @keyframes pop { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* Футер */
+        footer { text-align: center; padding: 40px; font-size: 0.9rem; opacity: 0.7; }
+
+        @media (max-width: 600px) {
+            nav { display: none; }
+            .hero h1 { font-size: 3rem; }
+            section { padding: 50px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">О нас</a>
+        <a href="#gallery">Фото</a>
+        <a href="#stories">Истории</a>
+        <a href="#guestbook">Приветы</a>
+    </nav>
+
+    <header class="hero">
+        <h1 class="reveal">Наш класс ❤️</h1>
+        <p class="reveal">Место, где живут наши самые теплые воспоминания, школьные шутки и крепкая дружба ✨</p>
+        <a href="#gallery" class="btn reveal">Вспомнить всё</a>
+    </header>
+
+    <section id="about" class="reveal">
+        <div style="background: white; padding: 40px; border-radius: 30px; text-align: center; border: 2px dashed var(--accent);">
+            <h2>Как это было... 😊</h2>
+            <p>Мы прошли через сотни уроков, исписали горы тетрадок и съели тысячи булочек в столовой. Но главное — мы были вместе!</p>
+        </div>
+    </section>
+
+    <section id="gallery" class="reveal">
+        <h2>Галерея моментов 📸</h2>
+        <div class="gallery">
+            <div class="gallery-item"><img src="https://picsum.photos/400/400?random=1" alt="фото"></div>
+            <div class="gallery-item"><img src="https://picsum.photos/400/400?random=2" alt="фото"></div>
+            <div class="gallery-item"><img src="https://picsum.photos/400/400?random=3" alt="фото"></div>
+            <div class="gallery-item"><img src="https://picsum.photos/400/400?random=4" alt="фото"></div>
+        </div>
+    </section>
+
+    <section id="stories" class="reveal">
+        <h2>Наши истории 📖</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Тот самый поход 🌲</h3>
+                <p>Помните, как мы заблудились в трех соснах и жарили хлеб на костре? Это было легендарно!</p>
+            </div>
+            <div class="card">
+                <h3>Контрольная по физике ⚡</h3>
+                <p>Как мы передавали шпаргалки через весь кабинет, а учительница делала вид, что не замечает.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="members" class="reveal">
+        <h2>Наша банда ✨</h2>
+        <div class="tags">
+            <span class="tag">Сашка</span> <span class="tag">Марина</span> <span class="tag">Димка</span>
+            <span class="tag">Оля</span> <span class="tag">Андрей</span> <span class="tag">Лена</span>
+            <span class="tag">Серёга</span> <span class="tag">Наташа</span>
+        </div>
+    </section>
+
+    <section id="guestbook" class="reveal">
+        <h2>Напиши привет 👋</h2>
+        <div class="guestbook">
+            <input type="text" id="name" placeholder="Твое имя">
+            <textarea id="text" rows="3" placeholder="Твое сообщение..."></textarea>
+            <button class="btn" style="width: 100%" onclick="send()">Отправить ✨</button>
+            <div id="messages">
+                <div class="msg"><strong>Кл. рук:</strong> Ребята, вы самые лучшие! Горжусь вами! ❤️</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Сделано с ❤️ для нашего класса • 2026</p>
+    </footer>
+
+    <script>
+        /* --- JS ЛОГИКА --- */
+
+        // 1. Анимация появления при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 2. Логика гостевой книги
+        function send() {
+            const name = document.getElementById('name').value;
+            const text = document.getElementById('text').value;
+            const container = document.getElementById('messages');
+
+            if (name === "" || text === "") {
+                alert("Напиши что-нибудь, пожалуйста! 😊");
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.className = 'msg';
+            div.innerHTML = `<strong>${name}:</strong> ${text}`;
+            container.prepend(div);
+
+            // Очистка
+            document.getElementById('name').value = "";
+            document.getElementById('text').value = "";
+        }
+    </script>
+</body>
+</html>
